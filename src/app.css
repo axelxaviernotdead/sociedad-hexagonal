@@ -1,0 +1,100 @@
+/*
+  Sociedad Hexagonal · sistema visual
+  Un tamaño. Un peso. Dos valores: negro (contenido, estado actual) y gris (metadatos, opciones).
+  No agregar otros colores, tamaños ni pesos.
+*/
+:root {
+	--negro: #000;
+	--gris: #8f8f8f;
+	--fondo: #fff;
+	--pastilla: #f3f3f3;
+	--campo: #f6f6f6;
+	--subrayado: #d2d2d2;
+	--linea: 22px;
+	--rotulo: 200px;
+	--margen: 40px;
+	color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	line-height: var(--linea);
+	font-weight: 500;
+	letter-spacing: -0.01em;
+	color: var(--negro);
+	background: var(--fondo);
+	-webkit-font-smoothing: antialiased;
+	font-variant-numeric: tabular-nums;
+}
+h1, h2, h3, p, button, input, textarea, select { font: inherit; letter-spacing: inherit; color: inherit; }
+
+.g { color: var(--gris); }
+
+a {
+	color: inherit;
+	text-decoration: underline;
+	text-decoration-color: var(--subrayado);
+	text-underline-offset: 3px;
+}
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--negro); outline-offset: 2px; }
+
+button, .btn {
+	display: inline-block;
+	background: var(--pastilla);
+	color: var(--gris);
+	border: 0;
+	border-radius: 8px;
+	padding: 0 12px;
+	line-height: var(--linea);
+	cursor: pointer;
+	text-decoration: none;
+}
+button:hover, .btn:hover { color: var(--negro); }
+button.activo { color: var(--negro); }
+
+input, textarea, select {
+	display: block;
+	width: 100%;
+	max-width: 640px;
+	background: var(--campo);
+	border: 0;
+	border-radius: 8px;
+	padding: 6px 12px;
+}
+textarea { min-height: calc(var(--linea) * 5); resize: vertical; }
+::placeholder { color: var(--gris); opacity: 0.7; }
+
+/* Retícula: columna de rótulos + contenido */
+.L {
+	display: grid;
+	grid-template-columns: var(--rotulo) minmax(0, 1fr);
+	column-gap: var(--margen);
+	padding: 0 var(--margen);
+}
+.L > :first-child { color: var(--gris); }
+.L.negro > :first-child { color: inherit; }
+
+/* Espacio vertical en múltiplos del interlineado */
+.e1 { margin-top: var(--linea); }
+.e2 { margin-top: calc(var(--linea) * 2); }
+.e3 { margin-top: calc(var(--linea) * 3); }
+
+table { border-collapse: collapse; }
+td { padding: 0 32px 0 0; vertical-align: top; }
+td.d { text-align: right; }
+.tabla { overflow-x: auto; }
+.nw { white-space: nowrap; }
+.texto { max-width: 760px; }
+.fila { display: flex; flex-wrap: wrap; gap: 0 24px; align-items: baseline; }
+.oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+@media (max-width: 760px) {
+	:root { --margen: 20px; }
+	.L { grid-template-columns: minmax(0, 1fr); }
+	.L > :first-child:not(:empty) { margin-bottom: var(--linea); }
+	td { padding-right: 16px; }
+	.solo-ancho { display: none; }
+}
