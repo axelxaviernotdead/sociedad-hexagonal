@@ -30,7 +30,8 @@ Antes de tocar cualquier pantalla, leer `DESIGN.md`. Las reglas visuales son tan
   - `registro`: datos propios, asistencia, presentaciones.
 - `src/routes/p/[numero]`: presentación. Pública o privada según su visibilidad, la decide la base.
 - `src/lib/components/Reproductor.svelte`: reproductor fijo al pie, persiste al navegar.
-- `src/hooks.server.ts`: cliente de Supabase por request y cabeceras de seguridad.
+- `src/hooks.server.ts`: cliente de Supabase por request y cabeceras de seguridad. Al agregar una ruta de miembros,
+  sumar su prefijo a `PRIVADAS` y `SIN_CACHE`; si no, sale sin `noindex` ni `no-store` aunque el grupo `(m)` la proteja.
 - `supabase/migrations/`: esquema. `supabase/plantillas/`: mail de acceso.
 
 ## Base de datos
@@ -44,6 +45,8 @@ Tablas principales: `lista_admision`, `miembros`, `titulos`, `miembro_titulos`, 
 - Títulos derivados: `utopico` (presentó al menos una vez) y `testigo` (asistió al menos una vez) se calculan en
   `mi_registro()`, no se guardan. `fundador`, `operador`, `musico` los asigna el núcleo. `nucleo` y `secretario` son cargos con permisos.
 - La numeración de presentaciones es global (001, 002...), no por utopía.
+- El número de cada mensaje del foro lo asigna el trigger `numerar_mensaje` (máximo del hilo + 1). El valor que
+  mande el código se sobrescribe; no calcularlo a mano.
 - Fechas en `timestamptz`. Al escribir SQL a mano, siempre con zona: `'2026-12-05 19:00-03'`. En la interfaz se
   muestran en `America/Argentina/Buenos_Aires` con las funciones de `src/lib/formato.ts`.
 
@@ -55,6 +58,7 @@ Tablas principales: `lista_admision`, `miembros`, `titulos`, `miembro_titulos`, 
   nunca saltear RLS. No pedirle esas claves al usuario.
 - Cada tabla nueva: `enable row level security`, políticas explícitas y `grant` explícitos a `anon`/`authenticated`.
 - Funciones `security definer` siempre con `set search_path = public` y control de permisos al inicio.
+- En el servidor, identificar al usuario con `locals.getUser()` (valida el token contra Supabase), nunca con `getSession()`.
 - Los mails de los miembros nunca se exponen a otros miembros. Solo alias.
 - `actas` solo se lee con `consultar_actas()`, que registra cada lectura en `actas_bitacora`.
 - Archivos en el bucket privado `archivo`, servidos con URLs firmadas de vida corta.
