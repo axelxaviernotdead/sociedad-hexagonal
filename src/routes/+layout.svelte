@@ -12,7 +12,8 @@
 					{ ruta: '/inicio', nombre: 'archivo' },
 					{ ruta: '/foro', nombre: 'foro' },
 					{ ruta: '/inicio#calendario', nombre: 'calendario' },
-					{ ruta: '/registro', nombre: 'registro' }
+					{ ruta: '/registro', nombre: 'registro' },
+					...(data.nucleo ? [{ ruta: '/nucleo', nombre: 'núcleo' }] : [])
 				]
 			: [{ ruta: '/', nombre: 'archivo' }]
 	);

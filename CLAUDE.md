@@ -40,8 +40,11 @@ Tablas principales: `lista_admision`, `miembros`, `titulos`, `miembro_titulos`, 
 `eventos`, `asistencias` (confirmación previa), `actas` (asistencia real, bajo llave), `actas_bitacora`,
 `presentaciones`, `hilos`, `mensajes`.
 
-- Migraciones nuevas: `supabase/migrations/0002_nombre.sql`, `0003_...`. Nunca editar una migración ya aplicada.
+- Migraciones nuevas: `supabase/migrations/0003_nombre.sql`, `0004_...`. Nunca editar una migración ya aplicada.
   Se aplican a mano en el SQL Editor de Supabase; avisar al usuario cuando haya una nueva para correr.
+- Pruebas de permisos: `supabase/pruebas/correr.sh` contra un Postgres local (no contra Supabase). Cada migración
+  con permisos nuevos lleva su archivo `supabase/pruebas/0NNN_nombre.sql`, con casos que deben fallar. Toda línea
+  tiene que dar `OK`.
 - Títulos derivados: `utopico` (presentó al menos una vez) y `testigo` (asistió al menos una vez) se calculan en
   `mi_registro()`, no se guardan. `fundador`, `operador`, `musico` los asigna el núcleo. `nucleo` y `secretario` son cargos con permisos.
 - La numeración de presentaciones es global (001, 002...), no por utopía.
@@ -80,14 +83,16 @@ Tablas principales: `lista_admision`, `miembros`, `titulos`, `miembro_titulos`, 
 
 ## Carga de contenido (hasta que exista el panel)
 
+Utopías, lugar y eventos: desde `/nucleo`. Lo demás, así:
+
 Archivos en Storage → `archivo` → carpeta con el número en tres cifras: `001/audio.m4a`, `001/diapositivas.pdf`.
-Fichas, utopías, eventos y lugares por SQL; ver README. Una utopía necesita su fila en `eventos` con `utopia_id`
-para aparecer en el calendario con los botones de asistencia.
+Fichas por SQL; ver README. Una utopía necesita su fila en `eventos` con `utopia_id` para aparecer en el calendario
+con los botones de asistencia: `guardar_utopia()` la crea sola; si se carga una utopía por SQL, hay que crearla a mano.
 
 ## Pendiente, en orden
 
-1. Panel del núcleo (cargo `nucleo`): alta y edición de utopías, eventos y lugar; después presentaciones con subida
-   de archivos; después admisión de mails y asignación de títulos.
+1. Panel del núcleo (cargo `nucleo`, ruta `/nucleo`). Hecho: utopías, eventos y lugar (migración 0002). Falta:
+   presentaciones con subida de archivos; después admisión de mails y asignación de títulos.
 2. Envíos masivos segmentados: todos, asistentes de la última, utópicos, operadores y músicos, selección manual.
    Texto plano, desde la misma cuenta de Resend.
 3. Interfaz del libro de actas para `secretario`, usando `consultar_actas` y `registrar_acta`.

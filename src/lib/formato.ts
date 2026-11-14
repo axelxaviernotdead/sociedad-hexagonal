@@ -32,3 +32,21 @@ export function hace(iso: string): string {
 
 export const n3 = (n: number) => String(n).padStart(3, '0');
 export const n2 = (n: number) => String(n).padStart(2, '0');
+
+// Campos de formulario (<input type="date"> y <input type="time">), en hora de Buenos Aires.
+export function fechaCampo(iso: string): string {
+	const p = new Intl.DateTimeFormat('en-CA', { timeZone: zona, year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date(iso));
+	const v = (t: string) => p.find((x) => x.type === t)?.value;
+	return `${v('year')}-${v('month')}-${v('day')}`;
+}
+
+// Sin hora se guarda 00:00, que hora() muestra vacío.
+export const horaCampo = hora;
+
+// De los campos a ISO. Argentina no tiene horario de verano desde 2009: UTC−3 fijo.
+// Devuelve null si la fecha o la hora no son válidas.
+export function desdeCampos(f: string, h: string): string | null {
+	if (!/^\d{4}-\d{2}-\d{2}$/.test(f) || (h !== '' && !/^\d{2}:\d{2}$/.test(h))) return null;
+	const d = new Date(`${f}T${h || '00:00'}:00-03:00`);
+	return Number.isNaN(d.getTime()) || fechaCampo(d.toISOString()) !== f ? null : d.toISOString();
+}
