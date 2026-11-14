@@ -22,11 +22,12 @@ Antes de tocar cualquier pantalla, leer `DESIGN.md`. Las reglas visuales son tan
 
 ## Estructura
 
-- `src/routes/+page.svelte`: sitio público (descripción, datos, archivo público).
-- `src/routes/entrar`, `auth/confirm`, `salir`: acceso.
+- `src/routes/+page.svelte`: portada sin sesión. Solo el campo de mail para pedir el enlace de acceso; sin menú,
+  sin textos. Con sesión redirige a `/inicio`. `entrar` redirige a `/` (enlaces viejos).
+- `src/routes/auth/confirm`, `salir`: acceso.
 - `src/routes/(m)/`: rutas solo para miembros. El `+layout.server.ts` del grupo redirige a `/entrar` sin sesión.
   - `inicio`: calendario con asistencia y archivo completo.
-  - `foro`, `foro/[id]`, `foro/nuevo`.
+  - `foro`, `foro/[id]`, `foro/nuevo`. La lista no muestra filtros por tema (solo "todos"); `?tema=` sigue filtrando.
   - `registro`: datos propios, asistencia, presentaciones.
 - `src/routes/p/[numero]`: presentación. Pública o privada según su visibilidad, la decide la base.
 - `src/lib/components/Reproductor.svelte`: reproductor fijo al pie, persiste al navegar.
