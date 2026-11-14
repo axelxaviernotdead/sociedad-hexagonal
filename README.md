@@ -9,7 +9,9 @@ Hecho: acceso por enlace de un solo uso con lista de admisión, calendario, conf
 lugar revelado 48 h antes a quienes confirman, archivo con audio y video en almacenamiento privado,
 foro con citas, registro personal, libro de actas con bitácora (solo base de datos), sitio público.
 
-Pendiente: panel del núcleo para cargar utopías, eventos y presentaciones sin entrar a Supabase;
+Panel del núcleo (`/nucleo`, cargo `nucleo`): utopías, lugar y eventos del calendario.
+
+Pendiente: en el panel, presentaciones, admisión y títulos;
 envíos masivos por mail; interfaz del libro de actas; RSS privado; reproducción aleatoria; edición de mensajes.
 
 ## Puesta en marcha
@@ -17,7 +19,8 @@ envíos masivos por mail; interfaz del libro de actas; RSS privado; reproducció
 ### 1. Supabase
 
 1. Crear un proyecto en supabase.com. Región: São Paulo.
-2. SQL Editor: ejecutar completo `supabase/migrations/0001_esquema.sql`.
+2. SQL Editor: ejecutar completas, en orden, las migraciones de `supabase/migrations/` (`0001_esquema.sql`,
+   `0002_panel_nucleo.sql`, ...). Cada una se ejecuta una sola vez.
 3. Authentication > URL Configuration
    - Site URL: `https://sociedadhexagonal.com`
    - Redirect URLs: `https://sociedadhexagonal.com/auth/confirm`, `http://localhost:5173/auth/confirm`
@@ -50,11 +53,11 @@ select id, 'fundador' from miembros where alias in ('alias1', 'alias2');
 
 ### 3. Contenido
 
-Hasta que exista el panel del núcleo, se carga desde Table Editor:
+Utopías, lugar y eventos se cargan desde `/nucleo` (hace falta el cargo `nucleo`, ver arriba). Al crear una utopía
+se crea también su evento en el calendario. El lugar solo lo ven quienes confirmaron, desde 48 h antes.
 
-- `utopias`: número, fecha, estado (`anunciada` o `realizada`).
-- `utopia_lugar`: dirección de cada utopía. Solo la ven quienes confirmaron, desde 48 h antes.
-- `eventos`: calendario. Si un evento es la utopía, completar `utopia_id`.
+El resto, hasta que esté en el panel, desde Table Editor:
+
 - `presentaciones`: número global, utopía, autor, título, resumen, duración en segundos, temas,
   visibilidad (`miembros` o `publico`), capítulos (`[{"t": 252, "titulo": "..."}]`).
 
@@ -82,6 +85,12 @@ npm run check
 ```
 
 `supabase/ejemplo.sql` carga datos de prueba. No usar en producción.
+
+Pruebas de permisos (necesita Postgres local, no toca Supabase):
+
+```sh
+PGHOST=localhost PGUSER=postgres supabase/pruebas/correr.sh
+```
 
 ### 5. Despliegue
 
