@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { TEMAS } from '$lib/temas';
 	import { hace } from '$lib/formato';
 	let { data } = $props();
 	const enlace = (cambios: Record<string, string | number | null>) => {
@@ -18,9 +17,6 @@
 <div class="L e3">
 	<nav class="temas" aria-label="Temas">
 		<a href={enlace({ tema: null })} class={data.tema ? 'g' : 'sel'}>todos</a>
-		{#each TEMAS as t}
-			<a href={enlace({ tema: t })} class={data.tema === t ? 'sel' : 'g'}>{t}</a>
-		{/each}
 	</nav>
 	<div>
 		<div class="fila">

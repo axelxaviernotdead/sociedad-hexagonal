@@ -9,5 +9,5 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 		const { error } = await locals.supabase.auth.verifyOtp({ token_hash, type });
 		if (!error) redirect(303, '/inicio');
 	}
-	redirect(303, '/entrar');
+	redirect(303, '/');
 };
