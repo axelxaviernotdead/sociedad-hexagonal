@@ -20,6 +20,7 @@
 	};
 </script>
 
+{#if data.alias || page.url.pathname !== '/'}
 <header class="L cabecera">
 	<div class="negro-fijo"><a href={data.alias ? '/inicio' : '/'} class="marca">Sociedad Hexagonal</a></div>
 	{#if data.alias}
@@ -34,6 +35,7 @@
 		</nav>
 	{/if}
 </header>
+{/if}
 
 <main class:con-reproductor={reproductor.pista}>
 	{@render children()}

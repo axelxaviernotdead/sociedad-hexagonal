@@ -22,7 +22,7 @@ Antes de tocar cualquier pantalla, leer `DESIGN.md`. Las reglas visuales son tan
 
 ## Estructura
 
-- `src/routes/+page.svelte`: portada sin sesión. Solo el campo de mail para pedir el enlace de acceso; sin menú,
+- `src/routes/+page.svelte`: portada sin sesión. Nombre y campo de mail centrados en la pantalla, sin cabecera; sin menú,
   sin textos. Con sesión redirige a `/inicio`. `entrar` redirige a `/` (enlaces viejos).
 - `src/routes/auth/confirm`, `salir`: acceso.
 - `src/routes/(m)/`: rutas solo para miembros. El `+layout.server.ts` del grupo redirige a `/` sin sesión.
