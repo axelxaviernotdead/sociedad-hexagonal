@@ -10,9 +10,10 @@ hilos del foro y libro de visitas; archivo en `/archivo`; confirmación de asist
 lugar revelado 48 h antes a quienes confirman, archivo con audio y video en almacenamiento privado,
 foro con citas, registro personal, libro de actas con bitácora (solo base de datos). Sin sesión, la portada muestra solo el acceso.
 
-Panel del núcleo (`/nucleo`, cargo `nucleo`): utopías, lugar y eventos del calendario.
+Panel del núcleo (`/nucleo`, cargo `nucleo`): utopías, lugar y eventos del calendario; miembros, admisión de mails
+en lote, títulos, cargos, expulsión y bitácora.
 
-Pendiente: en el panel, presentaciones, admisión y títulos;
+Pendiente: en el panel, presentaciones;
 envíos masivos por mail; interfaz del libro de actas; RSS privado; reproducción aleatoria; edición de mensajes.
 
 ## Puesta en marcha
@@ -31,6 +32,9 @@ envíos masivos por mail; interfaz del libro de actas; RSS privado; reproducció
 6. Authentication > Providers: dejar solo Email. Desactivar los demás.
 
 ### 2. Lista de admisión
+
+Desde el panel: `/nucleo/miembros`, pegar la lista de mails en "Admisión". Títulos y cargos se dan en la ficha de
+cada miembro. Lo de abajo sirve para el primer miembro del núcleo, antes de que exista alguien que use el panel.
 
 Solo puede entrar quien figure en `lista_admision`. Cada fila define mail y alias inicial:
 

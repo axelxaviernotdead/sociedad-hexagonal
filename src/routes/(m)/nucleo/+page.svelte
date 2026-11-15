@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { fecha, dia, hora, n2 } from '$lib/formato';
+	import NucleoMenu from '$lib/components/NucleoMenu.svelte';
 	let { data } = $props();
 </script>
 
 <svelte:head><title>Núcleo · Sociedad Hexagonal</title></svelte:head>
 
-<section class="L negro e3"><h1>Núcleo</h1><p class="g">Utopías, lugar y calendario. Lo que se guarda acá lo ven todos los miembros, salvo el lugar.</p></section>
+<NucleoMenu />
 
 <section class="L e2">
 	<h2>Utopías</h2>
