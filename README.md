@@ -5,7 +5,8 @@ Código abierto. SvelteKit + Supabase, desplegado en Vercel.
 
 ## Estado
 
-Hecho: acceso por enlace de un solo uso con lista de admisión, calendario, confirmación de asistencia,
+Hecho: acceso por enlace de un solo uso con lista de admisión, inicio con calendario del mes, siguiente evento,
+hilos del foro y libro de visitas; archivo en `/archivo`; confirmación de asistencia,
 lugar revelado 48 h antes a quienes confirman, archivo con audio y video en almacenamiento privado,
 foro con citas, registro personal, libro de actas con bitácora (solo base de datos). Sin sesión, la portada muestra solo el acceso.
 

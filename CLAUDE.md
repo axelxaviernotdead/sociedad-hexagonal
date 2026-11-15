@@ -26,7 +26,9 @@ Antes de tocar cualquier pantalla, leer `DESIGN.md`. Las reglas visuales son tan
   sin textos. Con sesión redirige a `/inicio`. `entrar` redirige a `/` (enlaces viejos).
 - `src/routes/auth/confirm`, `salir`: acceso.
 - `src/routes/(m)/`: rutas solo para miembros. El `+layout.server.ts` del grupo redirige a `/` sin sesión.
-  - `inicio`: calendario con asistencia y archivo completo.
+  - `inicio`: calendario del mes en celdas, siguiente evento con la asistencia a la próxima utopía, cinco hilos del
+    foro y el libro de visitas (`src/lib/components/LibroVisitas.svelte`).
+  - `archivo`: archivo completo de presentaciones.
   - `foro`, `foro/[id]`, `foro/nuevo`. La lista no muestra filtros por tema (solo "todos"); `?tema=` sigue filtrando.
   - `registro`: datos propios, asistencia, presentaciones.
 - `src/routes/p/[numero]`: presentación. Pública o privada según su visibilidad, la decide la base.
@@ -46,6 +48,9 @@ Tablas principales: `lista_admision`, `miembros`, `titulos`, `miembro_titulos`, 
 - Pruebas de permisos: `supabase/pruebas/correr.sh` contra un Postgres local (no contra Supabase). Cada migración
   con permisos nuevos lleva su archivo `supabase/pruebas/0NNN_nombre.sql`, con casos que deben fallar. Toda línea
   tiene que dar `OK`.
+- Libro de visitas (`libro_notas`, migración 0003): cada miembro mueve, edita y borra solo lo suyo (hasta 20 notas);
+  el núcleo borra cualquiera. Fuente y color son claves de listas cerradas (`src/lib/libro.ts` y el `check` de la
+  tabla deben coincidir); nunca guardar ni aplicar CSS que venga del usuario.
 - Títulos derivados: `utopico` (presentó al menos una vez) y `testigo` (asistió al menos una vez) se calculan en
   `mi_registro()`, no se guardan. `fundador`, `operador`, `musico` los asigna el núcleo. `nucleo` y `secretario` son cargos con permisos.
 - La numeración de presentaciones es global (001, 002...), no por utopía.

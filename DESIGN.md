@@ -136,6 +136,14 @@ visibles cuando el contenido se explica solo, y con la primera columna gris para
   `Ese alias ya está en uso.` Sin disculpas.
 - El sitio no habla de sí mismo ni del sistema por dentro: "enlace de acceso", no "magic link".
 
+## Excepción: libro de visitas
+
+El tablero del libro de visitas en el inicio es el único lugar del sitio donde cada miembro elige fuente y color.
+Opciones cerradas, definidas en `src/lib/libro.ts`: seis fuentes del sistema (sin fuentes externas) y ocho colores.
+El tamaño sigue siendo uno solo. El tablero es una superficie `--campo` sin borde; las notas son texto suelto,
+sin cajas ni sombras, con el alias en gris debajo. La nota elegida lleva `▶` delante.
+Fuera del tablero no se usan esas fuentes ni esos colores.
+
 ## Lo que no hay
 
 Íconos, imágenes decorativas, ilustraciones, logos gráficos, animaciones, transiciones, modales, toasts,
