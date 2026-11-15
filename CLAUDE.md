@@ -68,7 +68,10 @@ Tablas principales: `lista_admision`, `miembros`, `titulos`, `miembro_titulos`, 
 - Cada tabla nueva: `enable row level security`, políticas explícitas y `grant` explícitos a `anon`/`authenticated`.
 - Funciones `security definer` siempre con `set search_path = public` y control de permisos al inicio.
 - En el servidor, identificar al usuario con `locals.getUser()` (valida el token contra Supabase), nunca con `getSession()`.
-- Los mails de los miembros nunca se exponen a otros miembros. Solo alias.
+- Los mails de los miembros nunca se exponen a otros miembros. Solo alias. El núcleo ve únicamente los mails de la lista
+  de admisión que todavía no entraron (`nucleo_admision()`), nunca los de miembros.
+- Cambios de admisión, títulos, cargos y estado: solo por las funciones de 0004, que exigen núcleo y anotan en
+  `nucleo_bitacora`. Nadie se saca su propio cargo de núcleo ni cambia su propio estado.
 - `actas` solo se lee con `consultar_actas()`, que registra cada lectura en `actas_bitacora`.
 - Archivos en el bucket privado `archivo`, servidos con URLs firmadas de vida corta.
 - El texto de los usuarios nunca se renderiza con `{@html}`. Las citas `>>0002` se parsean en `src/lib/citas.ts`.
@@ -97,8 +100,8 @@ con los botones de asistencia: `guardar_utopia()` la crea sola; si se carga una 
 
 ## Pendiente, en orden
 
-1. Panel del núcleo (cargo `nucleo`, ruta `/nucleo`). Hecho: utopías, eventos y lugar (migración 0002). Falta:
-   presentaciones con subida de archivos; después admisión de mails y asignación de títulos.
+1. Panel del núcleo (cargo `nucleo`, ruta `/nucleo`). Hecho: utopías, eventos y lugar (0002); miembros, admisión
+   en lote, títulos, cargos, expulsión y bitácora (0004, `/nucleo/miembros`). Falta: presentaciones con subida de archivos.
 2. Envíos masivos segmentados: todos, asistentes de la última, utópicos, operadores y músicos, selección manual.
    Texto plano, desde la misma cuenta de Resend.
 3. Interfaz del libro de actas para `secretario`, usando `consultar_actas` y `registrar_acta`.
