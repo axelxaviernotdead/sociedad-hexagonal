@@ -66,7 +66,8 @@ Clase `.L`: dos columnas.
 - `.L.negro` pone el rótulo en negro, para el encabezado de una página (`Registro`, `Acceso`).
 
 Todo el texto alineado a la izquierda. Las únicas excepciones son columnas numéricas dentro de tablas
-(respuestas, duraciones, antigüedad), alineadas a la derecha con `td.d`.
+(respuestas, duraciones, antigüedad), alineadas a la derecha con `td.d`, y la portada de acceso sin sesión
+(nombre, campo de mail y botón centrados en la pantalla, sin cabecera).
 
 Párrafos con un ancho máximo de 760 px (`.texto`).
 
