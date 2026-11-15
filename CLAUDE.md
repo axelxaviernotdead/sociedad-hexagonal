@@ -29,7 +29,8 @@ Antes de tocar cualquier pantalla, leer `DESIGN.md`. Las reglas visuales son tan
   - `inicio`: calendario del mes en celdas, siguiente evento con la asistencia a la próxima utopía, cinco hilos del
     foro y el libro de visitas (`src/lib/components/LibroVisitas.svelte`).
   - `archivo`: archivo completo de presentaciones.
-  - `foro`, `foro/[id]`, `foro/nuevo`. La lista no muestra filtros por tema (solo "todos"); `?tema=` sigue filtrando.
+  - `foro`, `foro/[id]`, `foro/nuevo`. Sin temas: un hilo es título y cuerpo (`abrir_hilo(p_titulo, p_cuerpo)`,
+    migración 0005). La columna `hilos.tema` queda solo para hilos viejos.
   - `registro`: datos propios, asistencia, presentaciones.
 - `src/routes/p/[numero]`: presentación. Pública o privada según su visibilidad, la decide la base.
 - `src/lib/components/Reproductor.svelte`: reproductor fijo al pie, persiste al navegar.
