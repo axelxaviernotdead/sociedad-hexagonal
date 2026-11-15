@@ -50,3 +50,21 @@ export function desdeCampos(f: string, h: string): string | null {
 	const d = new Date(`${f}T${h || '00:00'}:00-03:00`);
 	return Number.isNaN(d.getTime()) || fechaCampo(d.toISOString()) !== f ? null : d.toISOString();
 }
+
+// Mes que contiene `ahora`, en hora de Buenos Aires (UTC−3 fijo).
+// semanaInicio: posición del día 1 en una semana que empieza el lunes (0 = lunes).
+export function mes(ahora: Date = new Date()) {
+	const [anio, numero] = fechaCampo(ahora.toISOString()).split('-').map(Number);
+	const dias = new Date(Date.UTC(anio, numero, 0)).getUTCDate();
+	const semanaInicio = (new Date(Date.UTC(anio, numero - 1, 1)).getUTCDay() + 6) % 7;
+	const nombre = new Intl.DateTimeFormat('es-AR', { month: 'long', timeZone: 'UTC' }).format(new Date(Date.UTC(anio, numero - 1, 1)));
+	const sig = numero === 12 ? [anio + 1, 1] : [anio, numero + 1];
+	return {
+		anio, numero, dias, semanaInicio, nombre,
+		desde: new Date(`${anio}-${n2(numero)}-01T00:00:00-03:00`).toISOString(),
+		hasta: new Date(`${sig[0]}-${n2(sig[1])}-01T00:00:00-03:00`).toISOString()
+	};
+}
+
+// Día del mes (1–31) de una fecha, en hora de Buenos Aires.
+export const diaDelMes = (iso: string) => Number(fechaCampo(iso).slice(8));

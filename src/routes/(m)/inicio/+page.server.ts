@@ -1,14 +1,17 @@
 import { fail } from '@sveltejs/kit';
+import { mes } from '$lib/formato';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const sb = locals.supabase;
 	const ahora = new Date().toISOString();
+	const m = mes();
 
-	const [eventos, proxima, archivo] = await Promise.all([
-		sb.from('eventos').select('id, fecha, titulo, detalle, utopia_id').gte('fecha', ahora).order('fecha').limit(12),
+	const [delMes, siguiente, proxima, hilos] = await Promise.all([
+		sb.from('eventos').select('id, fecha, titulo, utopia_id').gte('fecha', m.desde).lt('fecha', m.hasta).order('fecha'),
+		sb.from('eventos').select('id, fecha, titulo, detalle, utopia_id').gte('fecha', ahora).order('fecha').limit(1).maybeSingle(),
 		sb.from('utopias').select('id, numero, fecha').eq('estado', 'anunciada').gte('fecha', ahora).order('fecha').limit(1).maybeSingle(),
-		sb.rpc('archivo')
+		sb.from('hilos').select('id, titulo, respuestas, actividad').order('actividad', { ascending: false }).limit(5)
 	]);
 
 	let utopia = null;
@@ -22,7 +25,13 @@ export const load: PageServerLoad = async ({ locals }) => {
 		utopia = { ...u, estado: (mia.data?.estado as string | undefined) ?? null, confirmados: (confirmados.data as number) ?? 0, lugar: lugar.data?.lugar ?? null };
 	}
 
-	return { eventos: eventos.data ?? [], utopia, archivo: archivo.data ?? [] };
+	return {
+		mes: m,
+		delMes: delMes.data ?? [],
+		siguiente: siguiente.data as { id: number; fecha: string; titulo: string; detalle: string | null; utopia_id: number | null } | null,
+		utopia,
+		hilos: hilos.data ?? []
+	};
 };
 
 export const actions: Actions = {
