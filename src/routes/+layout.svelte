@@ -7,16 +7,16 @@
 	let { data, children } = $props();
 
 	const menu = $derived([
-		{ ruta: '/inicio', nombre: 'archivo' },
+		{ ruta: '/archivo', nombre: 'archivo' },
 		{ ruta: '/foro', nombre: 'foro' },
-		{ ruta: '/inicio#calendario', nombre: 'calendario' },
+		{ ruta: '/inicio', nombre: 'calendario' },
 		{ ruta: '/registro', nombre: 'registro' },
 		...(data.nucleo ? [{ ruta: '/nucleo', nombre: 'núcleo' }] : [])
 	]);
 	const actual = (ruta: string) => {
 		const base = ruta.split('#')[0];
 		if (ruta.includes('#')) return false;
-		return base === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(base) || (base === '/inicio' && page.url.pathname.startsWith('/p/'));
+		return base === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(base) || (base === '/archivo' && page.url.pathname.startsWith('/p/'));
 	};
 </script>
 

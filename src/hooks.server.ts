@@ -2,7 +2,7 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import type { Handle } from '@sveltejs/kit';
 
-const PRIVADAS = ['/inicio', '/foro', '/registro', '/nucleo', '/entrar'];
+const PRIVADAS = ['/inicio', '/archivo', '/foro', '/registro', '/nucleo', '/entrar'];
 const SIN_CACHE = [...PRIVADAS, '/p/'];
 
 export const handle: Handle = async ({ event, resolve }) => {

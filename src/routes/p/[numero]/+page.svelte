@@ -23,7 +23,7 @@
 <svelte:head><title>{p.titulo} · Sociedad Hexagonal</title></svelte:head>
 
 <section class="L e3">
-	<div><a href={page.data.alias ? '/inicio' : '/'}>archivo</a> / {n3(p.numero)}</div>
+	<div><a href={page.data.alias ? '/archivo' : '/'}>archivo</a> / {n3(p.numero)}</div>
 	<div>
 		<h1>{p.titulo}</h1>
 		<p class="g">{p.alias ?? ''}, utopía N°{n2(p.utopia)}, {fecha(p.fecha)}</p>
