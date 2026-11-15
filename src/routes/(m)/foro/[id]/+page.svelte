@@ -14,7 +14,7 @@
 <svelte:head><title>{data.hilo.titulo} · Sociedad Hexagonal</title></svelte:head>
 
 <section class="L e3">
-	<div><a href="/foro">foro</a> / <a href="/foro?tema={encodeURIComponent(data.hilo.tema)}">{data.hilo.tema}</a></div>
+	<div><a href="/foro">foro</a></div>
 	<div>
 		<h1>{data.hilo.titulo}</h1>
 		<p class="g">{data.hilo.respuestas} respuestas, abierto por {data.hilo.autor?.alias ?? ''} el {fecha(data.hilo.creado)}</p>
