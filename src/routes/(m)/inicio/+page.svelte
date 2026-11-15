@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { fecha, dia, hora, hace, n2, diaDelMes } from '$lib/formato';
+	import LibroVisitas from '$lib/components/LibroVisitas.svelte';
 	let { data, form } = $props();
 	const u = $derived(data.utopia);
 	const s = $derived(data.siguiente);
@@ -100,6 +101,19 @@
 			</tbody></table></div>
 		{/if}
 		<p class="fila e1"><a class="btn" href="/foro/nuevo">nuevo hilo</a><a href="/foro" class="g">ver el foro</a></p>
+	</div>
+</section>
+
+<section class="L e2">
+	<h2>Libro de visitas</h2>
+	<div>
+		<LibroVisitas
+			notas={data.notas}
+			yo={data.yo}
+			nucleo={data.nucleo}
+			error={form && 'libro' in form ? (form.libro ?? null) : null}
+			texto={form && 'texto' in form ? (form.texto ?? '') : ''}
+		/>
 	</div>
 </section>
 
